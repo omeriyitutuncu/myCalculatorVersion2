@@ -1,7 +1,6 @@
 package com.example.calculator2
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,8 +22,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ButtonLayout(state = state)
-                    Log.e("omer","main ${state.number1}")
+                    ButtonLayout(
+                        state = state,
+                    onAction = viewModel::onAction)
+                    println("button loyout ${state.number1} ")
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.example.calculator2
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,16 +26,18 @@ import com.example.calculator2.ui.theme.Orange
 
 @Composable
 fun ButtonLayout(
-    state:CalculatorState
+    state: CalculatorState,
+    onAction: (CalculationAction) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(6.dp)
+            //.padding(6.dp)
             .background(Color.Black),
         horizontalAlignment = Alignment.End,
         verticalArrangement = Arrangement.Bottom
     ) {
+
         Text(
             text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
             textAlign = TextAlign.Right,
@@ -47,39 +48,19 @@ fun ButtonLayout(
             maxLines = 2,
             fontSize = 60.sp,
         )
-        Rows1()
-        Rows2()
-        Rows3()
-        Rows4()
-        Rows5()
-    }
-        Log.e("omer","layout ${state.number1}")
-}
 
-@Composable
-fun NumberButton(
-    name: String,
-    modifier: Modifier = Modifier,
-    color: Color,
-    onAction: CalculationAction
-) {
-    TextButton(
-        onClick = { CalculatorViewModel().onAction(onAction) },
-        modifier = modifier.background(color),
-    ) {
-        Text(
-            text = name,
-            fontSize = 30.sp,
-            color = Color.White,
-            modifier = Modifier.padding(8.dp)
-        )
-        Log.e("omer","texxt $name")
+        Row1(onAction)
+        Row2(onAction)
+        Row3(onAction)
+        Row4(onAction)
+        Row5(onAction)
+
+
     }
 }
 
-
 @Composable
-fun Rows1() {
+fun Row1(onAction: (CalculationAction) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth(),
@@ -89,6 +70,7 @@ fun Rows1() {
             .aspectRatio(1f)
             .weight(1f)
             .clip(CircleShape)
+
         val names = mutableListOf(BUTTON_AC, BUTTON_CHANGE, BUTTON_PERCENTAGE, BUTTON_DIVIDE)
 
         for (i in names) {
@@ -103,19 +85,20 @@ fun Rows1() {
                 BUTTON_DIVIDE -> CalculationAction.Operation(CalculatorOperation.Division)
                 else -> CalculationAction.Nothing
             }
+
             NumberButton(
                 name = i,
                 modifier = circleButtonModifier,
-                color = color,
-                onAction = action
-            )
+                color = color
+            ) { onAction(action) }
         }
+
     }
     Spacer(modifier = Modifier.padding(2.dp))
 }
 
 @Composable
-fun Rows2() {
+fun Row2(onAction: (CalculationAction) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth(),
@@ -125,9 +108,11 @@ fun Rows2() {
             .aspectRatio(1f)
             .weight(1f)
             .clip(CircleShape)
-        val names = mutableListOf(NUMBER_7, NUMBER_8, NUMBER_9, BUTTON_MULTIPLY)
+
+        val names = mutableListOf(NUMBER_7,NUMBER_8,NUMBER_9,BUTTON_MULTIPLY)
 
         for (i in names) {
+
             val color = when (i) {
                 NUMBER_7, NUMBER_8, NUMBER_9 -> Light
                 else -> Orange
@@ -139,19 +124,21 @@ fun Rows2() {
                 BUTTON_MULTIPLY -> CalculationAction.Operation(CalculatorOperation.Multiplication)
                 else -> CalculationAction.Nothing
             }
+
+
             NumberButton(
                 name = i,
                 modifier = circleButtonModifier,
-                color = color,
-                onAction = action
-            )
+                color = color
+            ) { onAction(action) }
         }
+
     }
     Spacer(modifier = Modifier.padding(2.dp))
 }
 
 @Composable
-fun Rows3() {
+fun Row3(onAction: (CalculationAction) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth(),
@@ -161,6 +148,7 @@ fun Rows3() {
             .aspectRatio(1f)
             .weight(1f)
             .clip(CircleShape)
+
         val names = mutableListOf(NUMBER_4, NUMBER_5, NUMBER_6, BUTTON_SUBTRACT)
 
         for (i in names) {
@@ -175,19 +163,21 @@ fun Rows3() {
                 BUTTON_SUBTRACT -> CalculationAction.Operation(CalculatorOperation.Subtract)
                 else -> CalculationAction.Nothing
             }
+
+
             NumberButton(
                 name = i,
                 modifier = circleButtonModifier,
-                color = color,
-                onAction = action
-            )
+                color = color
+            ) { onAction(action) }
         }
+
     }
     Spacer(modifier = Modifier.padding(2.dp))
 }
 
 @Composable
-fun Rows4() {
+fun Row4(onAction: (CalculationAction) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth(),
@@ -197,6 +187,7 @@ fun Rows4() {
             .aspectRatio(1f)
             .weight(1f)
             .clip(CircleShape)
+
         val names = mutableListOf(NUMBER_1, NUMBER_2, NUMBER_3, BUTTON_ADDITION)
 
         for (i in names) {
@@ -211,19 +202,20 @@ fun Rows4() {
                 BUTTON_ADDITION -> CalculationAction.Operation(CalculatorOperation.Add)
                 else -> CalculationAction.Nothing
             }
+
             NumberButton(
                 name = i,
                 modifier = circleButtonModifier,
-                color = color,
-                onAction = action
-            )
+                color = color
+            ) { onAction(action) }
         }
+
     }
     Spacer(modifier = Modifier.padding(2.dp))
 }
 
 @Composable
-fun Rows5() {
+fun Row5(onAction: (CalculationAction) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth(),
@@ -257,13 +249,35 @@ fun Rows5() {
                 BUTTON_EQUAL -> CalculationAction.Calculate
                 else -> CalculationAction.Nothing
             }
+
             NumberButton(
                 name = i,
                 modifier = mod,
-                color = color,
-                onAction = action
-            )
+                color = color
+            ) { onAction(action) }
         }
+
     }
     Spacer(modifier = Modifier.padding(2.dp))
+}
+
+
+@Composable
+fun NumberButton(
+    name: String,
+    modifier: Modifier = Modifier,
+    color: Color,
+    onAction: () -> Unit
+) {
+    TextButton(
+        onClick = { onAction() },
+        modifier = modifier.background(color),
+    ) {
+        Text(
+            text = name,
+            fontSize = 30.sp,
+            color = Color.White,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
 }
