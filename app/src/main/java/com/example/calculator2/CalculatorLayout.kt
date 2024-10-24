@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,12 +44,11 @@ fun ButtonLayout(
             textAlign = TextAlign.Right,
             lineHeight = 60.sp,
             letterSpacing = 2.sp,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().testTag("test_state"),
             color = Color.White,
             maxLines = 2,
             fontSize = 60.sp,
         )
-
         Row1(onAction)
         Row2(onAction)
         Row3(onAction)
@@ -271,7 +271,7 @@ fun NumberButton(
 ) {
     TextButton(
         onClick = { onAction() },
-        modifier = modifier.background(color),
+        modifier = modifier.background(color).testTag("test_$name"),
     ) {
         Text(
             text = name,

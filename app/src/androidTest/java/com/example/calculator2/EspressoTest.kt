@@ -1,11 +1,14 @@
 package com.example.calculator2
 
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -66,11 +69,13 @@ class EspressoTest {
         // Do something
         rule.onNode(buttonTwo).performClick()
         rule.onNode(buttonAdd).performClick()
-        rule.onNode(buttonNine).performClick()
+        rule.onNode(buttonThree).performClick()
         rule.onNode(buttonEqual).performClick()
 
         // Check something
-        rule.onNodeWithText("11").assertExists()
+      //  rule.onNodeWithText("5").assertExists()
+        rule.onNodeWithTag("test_state").assertTextEquals("5")
+    // Assert.assertEquals(   rule.onNodeWithTag("test_state").toString(),"11")
     }
 
     @Test

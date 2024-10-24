@@ -23,9 +23,25 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_5_API_30" value="120" />
                   <entry key="R9WNA1ARZTJ" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="samsung&#10; SM-T500" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-1150581100">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Nexus_5_API_30" value="120" />
+                  <entry key="R5CT33YXVFP" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-S901B" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
